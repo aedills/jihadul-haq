@@ -10,7 +10,7 @@
                     @include('../components/alert')
                     <div class="d-flex justify-content-between justify-items-center">
                         <h5 class="card-title">Daftar Data Kegiatan</h5>
-                        <div class="card-tool p-3">
+                        <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
                         </div>
                     </div>

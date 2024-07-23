@@ -58,7 +58,7 @@ class KegiatanController extends Controller
 
             $kegiatan = MKegiatan::where('id', $request->id)->first();
             if (!$kegiatan) {
-                return back()->with('error', 'Data tidak ditemukan');
+                return redirect()->route('admin.kegiatan.index')->with('error', 'Data tidak ditemukan');
             }
 
             return view('admin/kegiatan/edit', [
@@ -89,7 +89,7 @@ class KegiatanController extends Controller
             $kegiatan = MKegiatan::where('id', $request->id)->first();
 
             if (!$kegiatan) {
-                return back()->with('error', 'Data tidak ditemukan');
+                return redirect()->route('admin.kegiatan.index')->with('error', 'Data tidak ditemukan');
             }
 
             $kegiatan->nama_kegiatan = $request->nama_kegiatan;
@@ -102,7 +102,7 @@ class KegiatanController extends Controller
 
             $kegiatan->save();
 
-            return back()->with('success', 'Berhasil memperbarui data');
+            return redirect()->route('admin.kegiatan.index')->with('success', 'Berhasil memperbarui data');
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan dalam memperbarui data');
         }
