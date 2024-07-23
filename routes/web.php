@@ -27,6 +27,9 @@ Route::prefix('adminn')->name('admin.')->group(function () {
     // Keuangan
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
+
+        Route::post('/storeIn', [KeuanganController::class, 'storeIn'])->name('storeIn');
+        Route::post('/storeOut', [KeuanganController::class, 'storeOut'])->name('storeOut');
     });
 
     // Jamaah
@@ -37,5 +40,13 @@ Route::prefix('adminn')->name('admin.')->group(function () {
     // Qurban
     Route::prefix('qurban')->name('qurban.')->group(function () {
         Route::get('/', [QurbanController::class, 'index'])->name('index');
+        Route::post('/store', [QurbanController::class, 'store'])->name('store');
+        Route::post('/update', [QurbanController::class, 'update'])->name('update');
+        Route::post('/delete', [QurbanController::class, 'delete'])->name('delete');
+
+        Route::get('/detail/{id}', [QurbanController::class, 'detail'])->name('detail');
+        Route::post('/detail/create', [QurbanController::class, 'detailCreate'])->name('detail.create');
+        Route::post('/detail/update', [QurbanController::class, 'detailUpdate'])->name('detail.update');
+        Route::post('/detail/delete', [QurbanController::class, 'detailDelete'])->name('detail.delete');
     });
 });
