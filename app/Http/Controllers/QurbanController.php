@@ -102,7 +102,8 @@ class QurbanController extends Controller
             'path' => 'Data Qurban / Detail',
             'id_q' => $id,
             'qurban' => MQurban::findOrFail($id),
-            'detail' => MQurbanDetail::where('id_qurban', $id)->orderBy('tgl_bayar', 'desc')->get()
+            'detail' => MQurbanDetail::where('id_qurban', $id)->orderBy('tgl_bayar', 'desc')->get(),
+            'terbayar' => MQurbanDetail::where('id_qurban', $id)->sum('nominal')
         ]);
     }
 
