@@ -28,8 +28,15 @@ Route::prefix('adminn')->name('admin.')->group(function () {
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
 
+        // Income
         Route::post('/storeIn', [KeuanganController::class, 'storeIn'])->name('storeIn');
+        Route::post('/updateIn', [KeuanganController::class, 'updateIn'])->name('updateIn');
+        Route::post('/deleteIn', [KeuanganController::class, 'deleteIn'])->name('deleteIn');
+
+        // Outcome
         Route::post('/storeOut', [KeuanganController::class, 'storeOut'])->name('storeOut');
+        Route::post('/updateOut', [KeuanganController::class, 'updateOut'])->name('updateOut');
+        Route::post('/deleteOut', [KeuanganController::class, 'deleteOut'])->name('deleteOut');
     });
 
     // Jamaah
