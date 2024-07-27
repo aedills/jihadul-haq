@@ -11,7 +11,7 @@ Route::get('/', function () {
     return redirect('/dashboard');
 });
 
-Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::get('dashboard/{range?}', [AdminController::class, 'index'])->name('dashboard');
 
 Route::prefix('adminn')->name('admin.')->group(function () {
     

@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Pemasukan <span>| Bulan ini</span></h5>
                             <div class="d-flex align-items-center">
-                                <div id="card-icon" class="mb-2 card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-currency-dollar"></i>
                                 </div>
                                 <div class="ps-3">
@@ -19,13 +19,6 @@
                                     <span class="text-success small pt-1 fw-bold">82%</span> <span class="text-muted small pt-2 ps-1">lebih banyak dari bulan lalu</span>
                                 </div>
                             </div>
-                            <style>
-                                @media (max-width: 576px) {
-                                    #card-icon {
-                                        display: none;
-                                    }
-                                }
-                            </style>
                         </div>
                     </div>
                 </div>
