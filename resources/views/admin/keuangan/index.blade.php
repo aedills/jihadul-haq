@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="ps-3">
                                     <h6>Rp. {{ $totalMonthIn ? number_format($totalMonthIn, 0, ',', '.') : '0' }},-</h6>
-                                    <span class="text-success small pt-1 fw-bold">82%</span> <span class="text-muted small pt-2 ps-1">lebih banyak dari bulan lalu</span>
+                                    <span class="text-success small pt-1 fw-bold">Total</span><span class="text-muted small pt-2 ps-1">keseluruhan bulan ini</span>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="ps-3">
                                     <h6>Rp. {{ $totalWeekIn ? number_format($totalWeekIn, 0, ',', '.') : '0' }},-</h6>
-                                    <span class="text-success small pt-1 fw-bold">23%</span> <span class="text-muted small pt-2 ps-1">lebih banyak dari pekan lalu</span>
+                                    <span class="text-success small pt-1 fw-bold">Total</span><span class="text-muted small pt-2 ps-1">keseluruhan pekan ini</span>
                                 </div>
                             </div>
                         </div>
@@ -90,9 +90,11 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between justify-items-center">
                         <h5 class="card-title">Daftar Data Pemasukan</h5>
+                        @if($role != 'ketua')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addIncomeModal"><i class="fa-solid fa-plus"></i> Tambah</button>
                         </div>
+                        @endif
                     </div>
 
                     <!-- Tabel -->
@@ -106,7 +108,9 @@
                                 <th>Nominal</th>
                                 <th>Sumber Pemasukan</th>
                                 <th>Keterangan</th>
+                                @if($role != 'ketua')
                                 <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -117,10 +121,12 @@
                                 <td>Rp. {{ number_format($in->nominal, 0, ',', '.') }},-</td>
                                 <td>{{ $in->sumber_pemasukan }}</td>
                                 <td>{{ substr($in->keterangan, 0, 80) }}</td>
+                                @if($role != 'ketua')
                                 <td class="d-flex justify-content-center justify-items-center gap-1">
-                                    <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#editIncomeModal" data-bs-id="{{$in->id}}" data-bs-jenis="{{$in->jenis_pemasukan}}" data-bs-tgl="{{$in->tanggal}}" data-bs-nominal="{{$in->nominal}}" data-bs-sumber="{{$in->sumber_pemasukan}}" data-bs-ket="{{$in->keterangan}}">Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteIncomeModal" data-bs-id="{{$in->id}}">Hapus</button>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editIncomeModal" data-bs-id="{{$in->id}}" data-bs-jenis="{{$in->jenis_pemasukan}}" data-bs-tgl="{{$in->tanggal}}" data-bs-nominal="{{$in->nominal}}" data-bs-sumber="{{$in->sumber_pemasukan}}" data-bs-ket="{{$in->keterangan}}">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteIncomeModal" data-bs-id="{{$in->id}}">Hapus</button>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
@@ -135,9 +141,11 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between justify-items-center">
                         <h5 class="card-title">Daftar Data Pengeluaran</h5>
+                        @if($role != 'ketua')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addOutcomeModal"><i class="fa-solid fa-plus"></i> Tambah</button>
                         </div>
+                        @endif
                     </div>
 
                     <!-- Tabel -->
@@ -151,7 +159,9 @@
                                 <th>Nominal</th>
                                 <th>Tujuan Pengeluaran</th>
                                 <th>Keterangan</th>
+                                @if($role != 'ketua')
                                 <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -162,10 +172,12 @@
                                 <td>Rp. {{ number_format($out->nominal, 0, ',', '.') }},-</td>
                                 <td>{{ $out->tujuan_pengeluaran }}</td>
                                 <td>{{ substr($out->keterangan, 0, 80) }}</td>
+                                @if($role != 'ketua')
                                 <td class="d-flex justify-content-center justify-items-center gap-1">
-                                    <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#editOutcomeModal" data-bs-id="{{$out->id}}" data-bs-jenis="{{$out->jenis_pengeluaran}}" data-bs-tgl="{{$out->tanggal}}" data-bs-nominal="{{$out->nominal}}" data-bs-tujuan="{{$out->tujuan_pengeluaran}}" data-bs-ket="{{$out->keterangan}}">Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteOutcomeModal" data-bs-id="{{$out->id}}">Hapus</button>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editOutcomeModal" data-bs-id="{{$out->id}}" data-bs-jenis="{{$out->jenis_pengeluaran}}" data-bs-tgl="{{$out->tanggal}}" data-bs-nominal="{{$out->nominal}}" data-bs-tujuan="{{$out->tujuan_pengeluaran}}" data-bs-ket="{{$out->keterangan}}">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteOutcomeModal" data-bs-id="{{$out->id}}">Hapus</button>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

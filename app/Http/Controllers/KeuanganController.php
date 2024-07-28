@@ -11,6 +11,10 @@ class KeuanganController extends Controller
 {
     public function index(Request $request)
     {
+        if(!session('data')){
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
         $StartOfMonth = Carbon::now()->startOfMonth();
         $StartOfWeek = Carbon::now()->startOfWeek();
 
@@ -26,6 +30,8 @@ class KeuanganController extends Controller
             'outcome' => MOutcome::orderBy('tanggal', 'desc')->get(),
             'totalMonthOut' => MOutcome::where('tanggal', '>=', $StartOfMonth)->sum('nominal'),
             'totalWeekOut' => MOutcome::where('tanggal', '>=', $StartOfWeek)->sum('nominal'),
+
+            'role' => session('data')->role
         ]);
     }
 

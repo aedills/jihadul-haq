@@ -10,11 +10,17 @@ class KegiatanController extends Controller
 {
     public function index(Request $request)
     {
+        if(!session('data')){
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
         return view('admin/kegiatan/index', [
             'title' => 'Data Kegiatan | Admin',
             'page' => 'Data Kegiatan',
             'path' => 'Data Kegiatan',
-            'kegiatan' => MKegiatan::all()
+            'kegiatan' => MKegiatan::all(),
+
+            'role' => session('data')->role
         ]);
     }
 
@@ -51,6 +57,9 @@ class KegiatanController extends Controller
 
     public function edit(Request $request)
     {
+        if(!session('data')){
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
         try {
             $request->validate([
                 'id' => 'required|integer'
@@ -65,7 +74,9 @@ class KegiatanController extends Controller
                 'title' => 'Data Kegiatan | Admin',
                 'page' => 'Edit Data Kegiatan',
                 'path' => 'Data Kegiatan / Edit',
-                'kegiatan' => $kegiatan
+                'kegiatan' => $kegiatan,
+
+                'role' => session('data')->role
             ]);
         } catch (\Exception $err) {
             return back()->with('error', 'Gagal mengambil data');
@@ -129,7 +140,6 @@ class KegiatanController extends Controller
             }
         } catch (\Exception $err) {
 
-            dd($err);
             return back()->with('error', 'Terdapat kesalahan dalam menghapus data');
         }
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\MIncome;
+use App\Models\MJamaah;
 use App\Models\MOutcome;
+use App\Models\MQurban;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -11,6 +13,10 @@ class AdminController extends Controller
 {
     public function index(Request $request, $range = '1month')
     {
+        if(!session('data')){
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
+        
         $now = Carbon::now();
         $startDate = $now;
 
@@ -45,24 +51,32 @@ class AdminController extends Controller
                 break;
         }
 
-        // Fetch income and outcome data based on the selected date range
-        $incomeData = MIncome::where('tanggal', '>=', $startDate)->select('tanggal', 'nominal')->get();
-        $outcomeData = MOutcome::where('tanggal', '>=', $startDate)->select('tanggal', 'nominal')->get();
+        // Total Kas
+        $x = MIncome::all()->sum('nominal');
+        $y = MOutcome::all()->sum('nominal');
+        $kas = $x - $y;
 
-        // Convert to associative arrays with date as the key
+        $incomeData = MIncome::where('tanggal', '>=', $startDate)
+            ->selectRaw('tanggal, SUM(nominal) as total_nominal')
+            ->groupBy('tanggal')
+            ->get();
+
+        $outcomeData = MOutcome::where('tanggal', '>=', $startDate)
+            ->selectRaw('tanggal, SUM(nominal) as total_nominal')
+            ->groupBy('tanggal')
+            ->get();
+
         $incomeArray = $incomeData->mapWithKeys(function ($item) {
-            return [$item['tanggal'] => $item['nominal']];
+            return [$item['tanggal'] => $item['total_nominal']];
         })->toArray();
 
         $outcomeArray = $outcomeData->mapWithKeys(function ($item) {
-            return [$item['tanggal'] => $item['nominal']];
+            return [$item['tanggal'] => $item['total_nominal']];
         })->toArray();
 
-        // Get all unique dates
         $allDates = array_unique(array_merge(array_keys($incomeArray), array_keys($outcomeArray)));
         sort($allDates);
 
-        // Prepare final data arrays
         $incomeFinal = [];
         $outcomeFinal = [];
 
@@ -83,10 +97,16 @@ class AdminController extends Controller
             'in' => $incomeData,
             'totalOut' => MOutcome::where('tanggal', '>=', $startDate)->sum('nominal'),
             'out' => $outcomeData,
-
+            
             'allDates' => $allDates,
             'incomeFinal' => $incomeFinal,
-            'outcomeFinal' => $outcomeFinal
+            'outcomeFinal' => $outcomeFinal,
+
+            'totalKas' => $kas,
+            'totalJamaah' => MJamaah::count(),
+            'qurban' => MQurban::withSum('detail', 'nominal')->orderBy('updated_at', 'desc')->get(),
+
+            'role' => session('data')->role
         ]);
     }
 }

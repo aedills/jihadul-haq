@@ -1,4 +1,4 @@
-@extends('../components/layout')
+@extends('../user/layout')
 @section('content')
 
 <section class="section">
@@ -7,14 +7,9 @@
 
             <div class="card">
                 <div class="card-body">
-                    @include('../components/alert')
+                    @include('../user/alert')
                     <div class="d-flex justify-content-between justify-items-center">
                         <h5 class="card-title">Daftar Data Qurban</h5>
-                        @if($role != 'ketua')
-                        <div class="card-tool pt-3">
-                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
-                        </div>
-                        @endif
                     </div>
 
                     <table class="table datatable">
@@ -27,30 +22,22 @@
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Mulai</th>
                                 <th>Total Terbayar</th>
                                 <th>Target Total</th>
-                                @if($role != 'ketua')
-                                <th style="width: 20%;">Aksi</th>
-                                @else
-                                <th style="width: 10%;">Aksi</th>
-                                @endif
+                                <th style="width: 10%;">Detail</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($qurban as $q)
                             <tr>
                                 <td>{{ $q->nama_penanggungjawab }}</td>
-                                <td><a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}"><span class="badge {{ $q->status == 'Lunas' ? 'bg-success' : 'bg-warning' }}">{{ $q->status }}</span></a></td>
+                                <td><a href="{{ route('user.qurban.detail', ['id' => $q->id]) }}"><span class="badge {{ $q->status == 'Lunas' ? 'bg-success' : 'bg-warning' }}">{{ $q->status }}</span></a></td>
                                 <td>{{ (new DateTime($q->tgl_mulai))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($q->detail_sum_nominal, 0, ',', '.') }},-</td>
                                 <td>Rp. {{ number_format($q->total_target, 0, ',', '.') }},-</td>
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
-                                        <a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}">
+                                        <a href="{{ route('user.qurban.detail', ['id' => $q->id]) }}">
                                             <button type="button" class="btn btn-sm btn-warning"><i class="fa-solid fa-bars-staggered"></i> Detail</button>
                                         </a>
-                                        @if($role != 'ketua')
-                                        <button type="button" class="btn btn-sm btn-info" data-bs-id="{{$q->id}}" data-bs-pj="{{$q->nama_penanggungjawab}}" data-bs-tgl="{{$q->tgl_mulai}}" data-bs-total="{{$q->total_target}}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pencil"></i> Edit</button>
-                                        <button type="button" class="btn btn-sm btn-danger" data-bs-id="{{$q->id}}" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i> Hapus</button>
-                                        @endif
                                     </div>
                                 </td>
                             </tr>

@@ -4,6 +4,24 @@
 <section class="section dashboard">
 
     <div class="row">
+        <!-- Total Kas -->
+        <div class="col-sm-12 col-md-3">
+            <div class="card info-card revenue-card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Kas <span>| Keseluruhan</span></h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>Rp. {{number_format($totalKas, 0, ',', '.')}},-</h6>
+                            <span class="text-success small pt-1 fw-bold">Total kas </span> <span class="text-muted small pt-2 ps-1">keseluruhan.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Pemasukan -->
         <div class="col-sm-12 col-md-3">
             <div class="card info-card revenue-card">
@@ -15,7 +33,7 @@
                         </div>
                         <div class="ps-3">
                             <h6>Rp. {{ $totalIn ? number_format($totalIn, 0, ',', '.') : '0' }},-</h6>
-                            <span class="text-success small pt-1 fw-bold">82%</span> <span class="text-muted small pt-2 ps-1">lebih banyak dari bulan lalu</span>
+                            <span class="text-success small pt-1 fw-bold">Total </span> <span class="text-muted small pt-2 ps-1">pemasukan {{$ket}}</span>
                         </div>
                     </div>
                 </div>
@@ -40,36 +58,18 @@
             </div>
         </div>
 
-        <!-- Kegiatan -->
+        <!-- Jamaah -->
         <div class="col-sm-12 col-md-3">
             <div class="card info-card sales-card">
                 <div class="card-body">
-                    <h5 class="card-title">Kegiatan <span>| {{ucfirst($ket)}}</span></h5>
+                    <h5 class="card-title">Jamaah <span>| Keseluruhan</span></h5>
                     <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-puzzle"></i>
+                            <i class="bi bi-people"></i>
                         </div>
                         <div class="ps-3">
-                            <h6>145</h6>
-                            <span class="text-primary small pt-1 fw-bold">Total </span><span class="text-muted small pt-2 ps-1">kegiatan</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card -->
-        <div class="col-sm-12 col-md-3">
-            <div class="card info-card sales-card">
-                <div class="card-body">
-                    <h5 class="card-title">Apa disini?? <span>| {{ucfirst($ket)}}</span></h5>
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-question-lg"></i>
-                        </div>
-                        <div class="ps-3">
-                            <h6>Apaaa??</h6>
-                            <span class="text-primary small pt-1 fw-bold">Tampilin </span><span class="text-muted small pt-2 ps-1">apa oii??</span>
+                            <h6>{{$totalJamaah}}</h6>
+                            <span class="text-primary small pt-1 fw-bold">Total </span><span class="text-muted small pt-2 ps-1">jamaah keseluruhan</span>
                         </div>
                     </div>
                 </div>
@@ -143,55 +143,38 @@
         <div class="col-12">
             <div class="card recent-sales overflow-auto">
                 <div class="card-body">
-                    <h5 class="card-title">Recent Sales <span>| {{ucfirst($ket)}}</span></h5>
+                    <h5 class="card-title">Update Cicilan Qurban Terbaru <span>| Keseluruhan</span></h5>
 
-                    <table class="table table-borderless datatable">
+                    <table class="table datatable table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Customer</th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Status</th>
+                                <th>
+                                    <b>N</b>ama Penanggung Jawab
+                                </th>
+                                <th style="width: 10%;">Status</th>
+                                <th data-type="date" data-format="DD-MM-YYYY">Tanggal Mulai</th>
+                                <th>Total Terbayar</th>
+                                <th>Target Total</th>
+                                <th style="width: 20%;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($qurban as $q)
                             <tr>
-                                <th scope="row"><a href="#">#2457</a></th>
-                                <td>Brandon Jacob</td>
-                                <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                <td>$64</td>
-                                <td><span class="badge bg-success">Approved</span></td>
+                                <td>{{ $q->nama_penanggungjawab }}</td>
+                                <td><a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}"><span class="badge {{ $q->status == 'Lunas' ? 'bg-success' : 'bg-warning' }}">{{ $q->status }}</span></a></td>
+                                <td>{{ (new DateTime($q->tgl_mulai))->format('d-m-Y') }}</td>
+                                <td>Rp. {{ number_format($q->detail_sum_nominal, 0, ',', '.') }},-</td>
+                                <td>Rp. {{ number_format($q->total_target, 0, ',', '.') }},-</td>
+                                <td>
+                                    <div class="d-flex justify-content-center justify-items-center gap-2">
+                                        <a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}">
+                                            <button type="button" class="btn btn-sm btn-warning"><i class="fa-solid fa-bars-staggered"></i> Detail</button>
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
-                                <th scope="row"><a href="#">#2147</a></th>
-                                <td>Bridie Kessler</td>
-                                <td><a href="#" class="text-primary">Blanditiis dolor omnis
-                                        similique</a></td>
-                                <td>$47</td>
-                                <td><span class="badge bg-warning">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><a href="#">#2049</a></th>
-                                <td>Ashleigh Langosh</td>
-                                <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                <td>$147</td>
-                                <td><span class="badge bg-success">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><a href="#">#2644</a></th>
-                                <td>Angus Grady</td>
-                                <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                                <td>$67</td>
-                                <td><span class="badge bg-danger">Rejected</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><a href="#">#2644</a></th>
-                                <td>Raheem Lehner</td>
-                                <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                                <td>$165</td>
-                                <td><span class="badge bg-success">Approved</span></td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

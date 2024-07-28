@@ -8,33 +8,44 @@
                 <span>Dashboard</span>
             </a>
         </li>
+
         <li class="nav-heading">Data Master</li>
 
+        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.kegiatan.*') ? '' : 'collapsed' }}" href="{{route('admin.kegiatan.index')}}">
                 <i class="bi bi-circle"></i>
                 <span>Kegiatan</span>
             </a>
         </li>
+        @endif
+
+        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.keuangan.*') ? '' : 'collapsed' }}" href="{{route('admin.keuangan.index')}}">
                 <i class="bi bi-circle"></i>
                 <span>Keuangan</span>
             </a>
         </li>
+        @endif
+
+        @if($role == 'admin' || $role == 'ketua')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.jamaah.*') ? '' : 'collapsed' }}" href="{{route('admin.jamaah.index')}}">
                 <i class="bi bi-circle"></i>
                 <span>Jamaah</span>
             </a>
         </li>
+        @endif
+
+        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.qurban.*') ? '' : 'collapsed' }}" href="{{route('admin.qurban.index')}}">
                 <i class="bi bi-circle"></i>
                 <span>Qurban</span>
             </a>
         </li>
-
+        @endif
 
 
 

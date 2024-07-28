@@ -11,11 +11,17 @@ class QurbanController extends Controller
 {
     public function index()
     {
+        if(!session('data')){
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
         return view('admin/qurban/index', [
             'title' => 'Data Qurban | Admin',
             'page' => 'Data Qurban',
             'path' => 'Data Qurban',
-            'qurban' => MQurban::withSum('detail', 'nominal')->get()
+            'qurban' => MQurban::withSum('detail', 'nominal')->get(),
+
+            'role' => session('data')->role
         ]);
     }
 
@@ -96,6 +102,10 @@ class QurbanController extends Controller
 
     public function detail($id)
     {
+        if(!session('data')){
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
+        
         return view('admin/qurban/detail', [
             'title' => 'Data Qurban | Admin',
             'page' => 'Detail Data Qurban',
@@ -103,7 +113,9 @@ class QurbanController extends Controller
             'id_q' => $id,
             'qurban' => MQurban::findOrFail($id),
             'detail' => MQurbanDetail::where('id_qurban', $id)->orderBy('tgl_bayar', 'desc')->get(),
-            'terbayar' => MQurbanDetail::where('id_qurban', $id)->sum('nominal')
+            'terbayar' => MQurbanDetail::where('id_qurban', $id)->sum('nominal'),
+
+            'role' => session('data')->role
         ]);
     }
 
@@ -157,7 +169,6 @@ class QurbanController extends Controller
 
             return back()->with('success', 'Berhasil memperbarui data');
         } catch (\Exception $err) {
-            // dd($err);
             return back()->with('error', 'Terdapat kesalahan saat memperbarui data');
         }
     }

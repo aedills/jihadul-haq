@@ -10,9 +10,11 @@
                     @include('../components/alert')
                     <div class="d-flex justify-content-between justify-items-center">
                         <h5 class="card-title">Daftar Data Kegiatan</h5>
+                        @if($role != 'ketua')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
                         </div>
+                        @endif
                     </div>
 
                     <table class="table datatable">
@@ -27,7 +29,9 @@
                                 <th>Lokasi</th>
                                 <th>Penanggung Jawab</th>
                                 <th>Status</th>
+                                @if($role != 'ketua')
                                 <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +44,7 @@
                                 <td>{{$list->lokasi}}</td>
                                 <td>{{$list->penanggung_jawab}}</td>
                                 <td>{{ucfirst($list->status)}}</td>
+                                @if($role != 'ketua')
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
                                         <a href="{{route('admin.kegiatan.edit', ['id' => $list->id])}}">
@@ -48,6 +53,7 @@
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id="{{$list->id}}" data-bs-ket="{{$list->nama_kegiatan}}"><i class="fa-solid fa-trash"></i> Hapus</button>
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

@@ -1,20 +1,32 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\JamaahController;
 use App\Http\Controllers\QurbanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
-    return redirect('/dashboard');
+    return redirect('/user/home');
 });
 
-Route::get('dashboard/{range?}', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/{range?}', [AdminController::class, 'index'])->name('dashboard');
 
+// Login
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/log1n', [AuthController::class, 'log1n'])->name('log1n');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::post('/do', [AuthController::class, 'doLogin'])->name('doLogin');
+
+
+// Admin
 Route::prefix('adminn')->name('admin.')->group(function () {
-    
+
     // Kegiatan
     Route::prefix('kegiatan')->name('kegiatan.')->group(function () {
         Route::get('/', [KegiatanController::class, 'index'])->name('index');
@@ -42,6 +54,10 @@ Route::prefix('adminn')->name('admin.')->group(function () {
     // Jamaah
     Route::prefix('jamaah')->name('jamaah.')->group(function () {
         Route::get('/', [JamaahController::class, 'index'])->name('index');
+        Route::post('/store', [JamaahController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [JamaahController::class, 'edit'])->name('edit');
+        Route::post('/update', [JamaahController::class, 'update'])->name('update');
+        Route::post('/delete', [JamaahController::class, 'delete'])->name('delete');
     });
 
     // Qurban
@@ -56,4 +72,18 @@ Route::prefix('adminn')->name('admin.')->group(function () {
         Route::post('/detail/update', [QurbanController::class, 'detailUpdate'])->name('detail.update');
         Route::post('/detail/delete', [QurbanController::class, 'detailDelete'])->name('detail.delete');
     });
+});
+
+// User
+Route::prefix('user')->name('user.')->group(function () {
+    Route::get('/home/{range?}', [UserController::class, 'home'])->name('home');
+
+    Route::get('/qurban', [UserController::class, 'qurban'])->name('qurban');
+    Route::get('/qurban/{id}', [UserController::class, 'qurbanDetail'])->name('qurban.detail');
+
+    Route::get('/kegiatan', [UserController::class, 'kegiatan'])->name('kegiatan');
+
+    Route::get('/keuangan', [UserController::class, 'keuangan'])->name('keuangan');
+
+    Route::get('/jamaah', [UserController::class, 'jamaah'])->name('jamaah');
 });
