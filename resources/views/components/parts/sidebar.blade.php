@@ -14,7 +14,7 @@
         @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.kegiatan.*') ? '' : 'collapsed' }}" href="{{route('admin.kegiatan.index')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-list-check"></i>
                 <span>Kegiatan</span>
             </a>
         </li>
@@ -23,7 +23,7 @@
         @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.keuangan.*') ? '' : 'collapsed' }}" href="{{route('admin.keuangan.index')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-money-bill-trend-up"></i>
                 <span>Keuangan</span>
             </a>
         </li>
@@ -32,7 +32,7 @@
         @if($role == 'admin' || $role == 'ketua')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.jamaah.*') ? '' : 'collapsed' }}" href="{{route('admin.jamaah.index')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-people-line"></i>
                 <span>Jamaah</span>
             </a>
         </li>
@@ -41,7 +41,7 @@
         @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.qurban.*') ? '' : 'collapsed' }}" href="{{route('admin.qurban.index')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-cow"></i>
                 <span>Qurban</span>
             </a>
         </li>

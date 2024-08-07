@@ -14,7 +14,7 @@
         @if(session('data'))
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('user.qurban') ? '' : 'collapsed' }}" href="{{route('user.qurban')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-cow"></i>
                 <span>Qurban</span>
             </a>
         </li>
@@ -22,19 +22,19 @@
 
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('user.kegiatan') ? '' : 'collapsed' }}" href="{{route('user.kegiatan')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-list-check"></i>
                 <span>Kegiatan</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('user.keuangan') ? '' : 'collapsed' }}" href="{{route('user.keuangan')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-money-bill-trend-up"></i>
                 <span>Keuangan</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('user.jamaah') ? '' : 'collapsed' }}" href="{{route('user.jamaah')}}">
-                <i class="bi bi-circle"></i>
+                <i class="fa-solid fa-people-line"></i>
                 <span>Jamaah</span>
             </a>
         </li>
