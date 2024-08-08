@@ -27,6 +27,7 @@
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Mulai</th>
                                 <th>Total Terbayar</th>
                                 <th>Target Total</th>
+                                <th>Jenis Hewan</th>
                                 @if($role != 'ketua')
                                 <th style="width: 20%;">Aksi</th>
                                 @else
@@ -42,13 +43,14 @@
                                 <td>{{ (new DateTime($q->tgl_mulai))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($q->detail_sum_nominal, 0, ',', '.') }},-</td>
                                 <td>Rp. {{ number_format($q->total_target, 0, ',', '.') }},-</td>
+                                <td>{{ $q->jenis_hewan }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
                                         <a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}">
                                             <button type="button" class="btn btn-sm btn-warning"><i class="fa-solid fa-bars-staggered"></i> Detail</button>
                                         </a>
                                         @if($role != 'ketua')
-                                        <button type="button" class="btn btn-sm btn-info" data-bs-id="{{$q->id}}" data-bs-pj="{{$q->nama_penanggungjawab}}" data-bs-tgl="{{$q->tgl_mulai}}" data-bs-total="{{$q->total_target}}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pencil"></i> Edit</button>
+                                        <button type="button" class="btn btn-sm btn-info" data-bs-id="{{$q->id}}" data-bs-pj="{{$q->nama_penanggungjawab}}" data-bs-tgl="{{$q->tgl_mulai}}" data-bs-total="{{$q->total_target}}" data-bs-jenis-hewan="{{$q->jenis_hewan}}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pencil"></i> Edit</button>
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-id="{{$q->id}}" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i> Hapus</button>
                                         @endif
                                     </div>
@@ -93,6 +95,17 @@
                                 <input id="total_target" name="total_target" type="text" class="form-control" placeholder="Rp. 0" onkeypress="return isNumberKey(event)" required>
                             </div>
                         </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label for="total_target" class="col-sm-3 col-form-label">Jenis Hewan</label>
+                            <div class="col-sm-9">
+                                <select name="jenis_hewan" class="form-control" required>
+                                    <option value="" disabled selected>--PILIH JENIS HEWAN--</option>
+                                    <option value="kambing">KAMBING</option>
+                                    <option value="sapi">SAPI</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -135,6 +148,17 @@
                                 <input id="total_target" name="total_target" type="text" class="form-control" placeholder="Rp. 0" onkeypress="return isNumberKey(event)" required value="">
                             </div>
                         </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label for="jenis_hewan" class="col-sm-3 col-form-label">Jenis Hewan</label>
+                            <div class="col-sm-9">
+                                <select name="jenis_hewan" id="" class="form-control">
+                                    <option value="">--PILIH JENIS HEWAN--</option>
+                                    <option value="kambing">KAMBING</option>
+                                    <option value="sapi">SAPI</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -173,12 +197,14 @@
                 var pj = button.data('bs-pj');
                 var tgl = button.data('bs-tgl');
                 var total = button.data('bs-total');
+                var jenis_hewan = button.data('bs-jenis-hewan');
 
                 var modal = $(this);
                 modal.find('input[name="id"]').val(id);
                 modal.find('input[name="penanggung_jawab"]').val(pj);
                 modal.find('input[name="tgl_mulai"]').val(tgl);
                 modal.find('input[name="total_target"]').val(total);
+                modal.find('select[name="jenis_hewan"]').val(jenis_hewan);
             });
 
             $('#deleteModal').on('show.bs.modal', function(event) {

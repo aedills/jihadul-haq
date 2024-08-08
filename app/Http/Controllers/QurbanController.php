@@ -32,6 +32,7 @@ class QurbanController extends Controller
                 'penanggung_jawab' => 'required|string|max:100',
                 'tgl_mulai' => 'required|date',
                 'total_target' => 'required|string',
+                'jenis_hewan' => 'required|in:sapi,kambing'
             ]);
 
             $qurban = new MQurban();
@@ -40,7 +41,7 @@ class QurbanController extends Controller
             $qurban->status = 'Belum Lunas';
             $qurban->tgl_mulai = $request->tgl_mulai;
             $qurban->total_target = $request->total_target;
-
+            $qurban->jenis_hewan = $request->jenis_hewan;
             $qurban->save();
 
             return back()->with('success', 'Berhasil menambahkan data');
@@ -57,6 +58,7 @@ class QurbanController extends Controller
                 'penanggung_jawab' => 'required|string|max:100',
                 'tgl_mulai' => 'required|date',
                 'total_target' => 'required|string',
+                'jenis_hewan' => 'required|in:sapi,kambing'
             ]);
 
             $qurban = MQurban::find($request->id);
@@ -64,6 +66,7 @@ class QurbanController extends Controller
             $qurban->nama_penanggungjawab = $request->penanggung_jawab;
             $qurban->tgl_mulai = $request->tgl_mulai;
             $qurban->total_target = $request->total_target;
+            $qurban->jenis_hewan = $request->jenis_hewan;
 
             $qurban->save();
 

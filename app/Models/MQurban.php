@@ -11,7 +11,7 @@ class MQurban extends Model
     protected $table = 'data_qurban';
     protected $primary_key = 'id';
     protected $fillable = [
-        'nama_penanggungjawab', 'status', 'tgl_mulai', 'total_terbayar', 'target_total'
+        'nama_penanggungjawab', 'status', 'tgl_mulai', 'total_terbayar', 'target_total', 'jenis_hewan'
     ];
 
     public function detail()
