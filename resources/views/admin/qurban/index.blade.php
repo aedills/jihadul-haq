@@ -70,13 +70,19 @@
                     <h5 class="modal-title">Tambah Data Qurban</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
                     <form id="addForm" action="{{route('admin.qurban.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3 mt-1">
                             <label for="penanggung_jawab" class="col-sm-3 col-form-label">Nama Penanggung Jawab</label>
                             <div class="col-sm-9">
-                                <input id="penanggung_jawab" name="penanggung_jawab" type="text" class="form-control" maxlength="100" required>
+                                <select class="form-select" id="penanggung_jawab" name="penanggung_jawab" required>
+                                    <option selected hidden value="">Pilih Jamaah</option>
+                                    @foreach($jamaah as $jj)
+                                    <option value="{{$jj->nama}}">{{$jj->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -103,7 +109,7 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Data -->
+    <!-- Modal Edit Data -->
     <div class="modal fade" id="editModal" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -118,7 +124,12 @@
                         <div class="row mb-3 mt-1">
                             <label for="penanggung_jawab" class="col-sm-3 col-form-label">Nama Penanggung Jawab</label>
                             <div class="col-sm-9">
-                                <input id="penanggung_jawab" name="penanggung_jawab" type="text" class="form-control" maxlength="100" required value="">
+                                <select class="form-select" id="penanggung_jawab" name="penanggung_jawab" required>
+                                    <option selected hidden value="">Pilih Jamaah</option>
+                                    @foreach($jamaah as $jj)
+                                    <option value="{{$jj->nama}}">{{$jj->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -176,7 +187,7 @@
 
                 var modal = $(this);
                 modal.find('input[name="id"]').val(id);
-                modal.find('input[name="penanggung_jawab"]').val(pj);
+                modal.find('select[name="penanggung_jawab"]').val(pj);
                 modal.find('input[name="tgl_mulai"]').val(tgl);
                 modal.find('input[name="total_target"]').val(total);
             });

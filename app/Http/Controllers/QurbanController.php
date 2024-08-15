@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MJamaah;
 use App\Models\MQurban;
 use App\Models\MQurbanDetail;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class QurbanController extends Controller
             'page' => 'Data Qurban',
             'path' => 'Data Qurban',
             'qurban' => MQurban::withSum('detail', 'nominal')->get(),
+            'jamaah' => MJamaah::all(),
 
             'role' => session('data')->role
         ]);
