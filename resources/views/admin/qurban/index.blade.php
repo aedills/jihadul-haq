@@ -27,7 +27,7 @@
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Mulai</th>
                                 <th>Total Terbayar</th>
                                 <th>Target Total</th>
-                                @if($role != 'ketua')
+                                @if($role != 'ketua' && $role != 'admin')
                                 <th style="width: 20%;">Aksi</th>
                                 @else
                                 <th style="width: 10%;">Aksi</th>
@@ -47,7 +47,7 @@
                                         <a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}">
                                             <button type="button" class="btn btn-sm btn-warning"><i class="fa-solid fa-bars-staggered"></i> Detail</button>
                                         </a>
-                                        @if($role != 'ketua')
+                                        @if($role != 'ketua' && $role != 'admin')
                                         <button type="button" class="btn btn-sm btn-info" data-bs-id="{{$q->id}}" data-bs-pj="{{$q->nama_penanggungjawab}}" data-bs-tgl="{{$q->tgl_mulai}}" data-bs-total="{{$q->total_target}}" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pencil"></i> Edit</button>
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-id="{{$q->id}}" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i> Hapus</button>
                                         @endif

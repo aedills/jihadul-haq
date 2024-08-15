@@ -12,7 +12,7 @@
                         <h5 class="card-title">Daftar/Detail Pembayaran Qurban</h5>
                         <div class="card-tool pt-3">
                             <a href="{{ route('admin.qurban.index') }}"><button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-arrow-left"></i> Kembali</button></a>
-                            @if($role != 'ketua')
+                            @if($role != 'ketua' && $role != 'admin')
                                 @if($qurban->status == 'Lunas')
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Status pembayaran sudah lunas."><i class="fa-solid fa-plus"></i> Tambah</button>
                                 @else
@@ -60,7 +60,7 @@
                                 </th>
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Bayar</th>
                                 <th>Nominal</th>
-                                @if($role != 'ketua')
+                                @if($role != 'ketua' && $role != 'admin')
                                 <th style="width: 20%;">Aksi</th>
                                 @endif
                             </tr>
@@ -71,7 +71,7 @@
                                 <td>{{ $list->nama_pembayar }}</td>
                                 <td>{{ (new DateTime($list->tgl_bayar))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($list->nominal, 0, ',', '.') }},-</td>
-                                @if($role != 'ketua')
+                                @if($role != 'ketua' && $role != 'admin')
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
                                         <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="{{$list->id}}" data-bs-nama="{{$list->nama_pembayar}}" data-bs-tgl="{{$list->tgl_bayar}}" data-bs-nominal="{{$list->nominal}}"><i class="fa-solid fa-pencil"></i> Edit</button>
