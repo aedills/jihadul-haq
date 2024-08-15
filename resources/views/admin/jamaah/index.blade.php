@@ -44,6 +44,7 @@
                                 <th>Alamat Rumah</th>
                                 <th>No. HP/WA</th>
                                 <th>Jenis Kelamin</th>
+                                <th>Umur</th>
                                 <th>Tempat Tanggal Lahir</th>
                                 <th>Pekerjaan</th>
                                 @if($role == 'admin')
@@ -64,6 +65,7 @@
                                     <span class="badge bg-info"><i class="bi bi-gender-female me-1"></i> Perempuan</span>
                                     @endif
                                 </td>
+                                <td>{{ $list->umur }} Tahun</td>
                                 <td>{{$list->tempat_lahir.', '.(new DateTime($list->tanggal_lahir))->format('d M Y')}}</td>
                                 <td>{{ $list->pekerjaan }}</td>
                                 @if($role == 'admin')

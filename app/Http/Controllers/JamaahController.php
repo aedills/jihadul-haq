@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MJamaah;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -44,6 +45,8 @@ class JamaahController extends Controller
 
             $jamaah = new MJamaah();
 
+            $birth_date = Carbon::parse($request->tanggal_lahir);
+
             $jamaah->nama = $request->nama_jamaah;
             $jamaah->alamat = $request->alamat;
             $jamaah->no_hp = $request->no_hp;
@@ -51,6 +54,7 @@ class JamaahController extends Controller
             $jamaah->gender = $request->gender;
             $jamaah->tempat_lahir = $request->tempat_lahir;
             $jamaah->tanggal_lahir = $request->tanggal_lahir;
+            $jamaah->umur = $birth_date->age;
             $jamaah->pekerjaan = $request->pekerjaan;
 
             $jamaah->save();

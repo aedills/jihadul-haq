@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('gender', ['l', 'p']);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->integer('umur');
             $table->string('pekerjaan');
             $table->timestamps();
         });
