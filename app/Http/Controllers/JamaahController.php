@@ -38,6 +38,7 @@ class JamaahController extends Controller
                 'alamat' => 'string|required',
                 'no_hp' => 'string|required|unique:data_jamaah,no_hp',
                 'gender' => 'string|required|max:1',
+                'hidup' => 'string|required',
                 'tempat_lahir' => 'string|nullable',
                 'tanggal_lahir' => 'date|nullable',
                 'pekerjaan' => 'string|nullable',
@@ -52,6 +53,7 @@ class JamaahController extends Controller
             $jamaah->no_hp = $request->no_hp;
             $jamaah->p4ss = Hash::make($request->tanggal_lahir);
             $jamaah->gender = $request->gender;
+            $jamaah->hidup = $request->hidup;
             $jamaah->tempat_lahir = $request->tempat_lahir;
             $jamaah->tanggal_lahir = $request->tanggal_lahir;
             $jamaah->umur = $birth_date->age;
@@ -90,6 +92,7 @@ class JamaahController extends Controller
                 'nama_jamaah' => 'string|required',
                 'alamat' => 'string|required',
                 'gender' => 'string|required|max:1',
+                'hidup' => 'string|required',
                 'tempat_lahir' => 'string|nullable',
                 'tanggal_lahir' => 'date|nullable',
                 'pekerjaan' => 'string|nullable',
@@ -100,6 +103,7 @@ class JamaahController extends Controller
             $jamaah->nama = $request->nama_jamaah;
             $jamaah->alamat = $request->alamat;
             $jamaah->gender = $request->gender;
+            $jamaah->hidup = $request->hidup;
             $jamaah->tempat_lahir = $request->tempat_lahir;
             $jamaah->tanggal_lahir = $request->tanggal_lahir;
             $jamaah->pekerjaan = $request->pekerjaan;

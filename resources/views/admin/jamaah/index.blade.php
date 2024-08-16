@@ -44,6 +44,7 @@
                                 <th>Alamat Rumah</th>
                                 <th>No. HP/WA</th>
                                 <th>Jenis Kelamin</th>
+                                <th>Status Hidup</th>
                                 <th>Umur</th>
                                 <th>Tempat Tanggal Lahir</th>
                                 <th>Pekerjaan</th>
@@ -65,6 +66,7 @@
                                     <span class="badge bg-info"><i class="bi bi-gender-female me-1"></i> Perempuan</span>
                                     @endif
                                 </td>
+                                <td>{{ $list->hidup == 'ya' ? 'Hidup' : 'Meninggal Dunia' }}</td>
                                 <td>{{ $list->umur }} Tahun</td>
                                 <td>{{$list->tempat_lahir.', '.(new DateTime($list->tanggal_lahir))->format('d M Y')}}</td>
                                 <td>{{ $list->pekerjaan }}</td>
@@ -126,6 +128,17 @@
                                     <option selected value="" hidden>Pilih jenis kelamin</option>
                                     <option value="l">Laki-laki</option>
                                     <option value="p">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="hidup">Status Hidup</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="hidup" name="hidup" required>
+                                    <option selected value="" hidden>Pilih status hidup</option>
+                                    <option value="ya">Hidup</option>
+                                    <option value="tidak">Meninggal Dunia</option>
                                 </select>
                             </div>
                         </div>

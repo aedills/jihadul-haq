@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('no_hp', 14);
             $table->string('p4ss');
             $table->enum('gender', ['l', 'p']);
+            $table->enum('hidup', ['ya', 'tidak']);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->integer('umur');

@@ -11,6 +11,6 @@ class MJamaah extends Model
     protected $table = 'data_jamaah';
     protected $primary_key = 'id';
     protected $fillable = [
-        'nama', 'alamat', 'no_hp', 'p4ss', 'gender', 'tempat_lahir', 'tanggal_lahir', 'umur', 'pekerjaan'
+        'nama', 'alamat', 'no_hp', 'p4ss', 'gender', 'hidup', 'tempat_lahir', 'tanggal_lahir', 'umur', 'pekerjaan'
     ];
 }

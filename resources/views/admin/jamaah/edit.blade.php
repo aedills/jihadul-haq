@@ -39,9 +39,19 @@
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label" for="gender">Jenis Kelamin*</label>
                             <div class="col-sm-9">
-                                <select class="form-select" id="gender" name="gender" required value="{{$jamaah->gender}}">
-                                    <option value="l">Laki-laki</option>
-                                    <option value="p">Perempuan</option>
+                                <select class="form-select" id="gender" name="gender" required>
+                                    <option value="l" {{$jamaah->gender == 'l' ? 'selected' : ''}}>Laki-laki</option>
+                                    <option value="p" {{$jamaah->gender == 'p' ? 'selected' : ''}}>Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="hidup">Status Hidup</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="hidup" name="hidup" required>
+                                    <option value="ya" {{$jamaah->hidup == 'ya' ? 'selected' : ''}}>Hidup</option>
+                                    <option value="tidak" {{$jamaah->hidup == 'tidak' ? 'selected' : ''}}>Meninggal Dunia</option>
                                 </select>
                             </div>
                         </div>
