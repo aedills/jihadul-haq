@@ -76,7 +76,7 @@ class UserController extends Controller
             'title' => 'Data Qurban | Jihadul Haq',
             'page' => 'Data Qurban',
             'path' => 'Data Qurban',
-            'qurban' => MQurban::withSum('detail', 'nominal')->get()
+            'qurban' => MQurban::withSum('detail', 'nominal')->where('nama_penanggungjawab', 'LIKE', session('data')->nama)->get()
         ]);
     }
 
