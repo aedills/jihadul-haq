@@ -10,7 +10,7 @@
                     @include('../components/alert')
                     <div class="d-flex justify-content-between justify-items-center">
                         <h5 class="card-title">Daftar Data Qurban</h5>
-                        @if($role != 'ketua')
+                        @if($role != 'ketua' && $role != 'admin')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
                         </div>

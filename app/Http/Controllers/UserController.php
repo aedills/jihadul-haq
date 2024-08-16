@@ -72,6 +72,10 @@ class UserController extends Controller
 
     public function qurban()
     {
+        if (!session('data')) {
+            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
         return view('user/qurban', [
             'title' => 'Data Qurban | Jihadul Haq',
             'page' => 'Data Qurban',
@@ -82,6 +86,10 @@ class UserController extends Controller
 
     public function qurbanDetail($id)
     {
+        if (!session('data')) {
+            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
         return view('user/qurbanDetail', [
             'title' => 'Data Qurban | Admin',
             'page' => 'Detail Data Qurban',
