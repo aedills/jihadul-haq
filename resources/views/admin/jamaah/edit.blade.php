@@ -77,6 +77,29 @@
                             </div>
                         </div>
 
+                        @if($jamaah->foto == 'default.png')
+                        <div class="row mb-3 mt-1">
+                            <label for="foto" class="col-sm-3 col-form-label">Foto</label>
+                            <div class="col-sm-9">
+                                <input id="foto" name="foto" type="file" class="form-control">
+                            </div>
+                        </div>
+                        @else
+                        <div class="row mb-3 mt-3">
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Foto</label><br>
+                                <span style="font-style: italic; opacity: 0.8; font-size: smaller;">Anda tidak dapat mengubah foto.</span>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="d-flex justify-content-start justify-items-center mt-1">
+                                    <a href="{{url('photos/'.$jamaah->foto)}}" target="_blank">
+                                        <img src="{{url('photos/'.$jamaah->foto)}}" alt="{{$jamaah->foto}}" style="max-width: 150px; border-radius: 6px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
                         <span style="font-style: italic; opacity: 0.8; font-size: smaller;">* : Data tidak boleh dikosongkan.</span>
 
                     </form>

@@ -48,6 +48,7 @@
                                 <th>Umur</th>
                                 <th>Tempat Tanggal Lahir</th>
                                 <th>Pekerjaan</th>
+                                <th>Foto</th>
                                 @if($role == 'admin')
                                 <th>Aksi</th>
                                 @endif
@@ -70,6 +71,13 @@
                                 <td>{{ $list->umur }} Tahun</td>
                                 <td>{{$list->tempat_lahir.', '.(new DateTime($list->tanggal_lahir))->format('d M Y')}}</td>
                                 <td>{{ $list->pekerjaan }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-center justify-items-center">
+                                        <a href="{{url('photos/'.$list->foto)}}" target="_blank">
+                                            <img src="{{url('photos/'.$list->foto)}}" alt="{{$list->foto}}" style="max-width: 60px;">
+                                        </a>
+                                    </div>
+                                </td>
                                 @if($role == 'admin')
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
@@ -161,6 +169,13 @@
                             <label for="pekerjaan" class="col-sm-3 col-form-label">Pekerjaan</label>
                             <div class="col-sm-9">
                                 <input id="pekerjaan" name="pekerjaan" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label for="foto" class="col-sm-3 col-form-label">Foto</label>
+                            <div class="col-sm-9">
+                                <input id="foto" name="foto" type="file" class="form-control">
                             </div>
                         </div>
 

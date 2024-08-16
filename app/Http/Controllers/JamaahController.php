@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\MJamaah;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -12,7 +14,7 @@ class JamaahController extends Controller
 {
     public function index(Request $request)
     {
-        if(!session('data')){
+        if (!session('data')) {
             return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
         }
 
@@ -42,6 +44,7 @@ class JamaahController extends Controller
                 'tempat_lahir' => 'string|nullable',
                 'tanggal_lahir' => 'date|nullable',
                 'pekerjaan' => 'string|nullable',
+                'foto' => 'file|max:20480'
             ]);
 
             $jamaah = new MJamaah();
@@ -59,6 +62,15 @@ class JamaahController extends Controller
             $jamaah->umur = $birth_date->age;
             $jamaah->pekerjaan = $request->pekerjaan;
 
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $filename = Str::random(10) . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('photos'), $filename);
+                $jamaah->foto = $filename;
+            } else {
+                $jamaah->foto = 'default.png';
+            }
+
             $jamaah->save();
 
             return back()->with('success', 'Berhasil menambahkan data');
@@ -71,7 +83,7 @@ class JamaahController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if(!session('data')){
+        if (!session('data')) {
             return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
         }
         return view('admin/jamaah/edit', [
@@ -96,6 +108,7 @@ class JamaahController extends Controller
                 'tempat_lahir' => 'string|nullable',
                 'tanggal_lahir' => 'date|nullable',
                 'pekerjaan' => 'string|nullable',
+                'foto' => 'nullable|file|max:20480',
             ]);
 
             $jamaah = MJamaah::findOrFail($request->id);
@@ -107,6 +120,15 @@ class JamaahController extends Controller
             $jamaah->tempat_lahir = $request->tempat_lahir;
             $jamaah->tanggal_lahir = $request->tanggal_lahir;
             $jamaah->pekerjaan = $request->pekerjaan;
+
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $filename = Str::random(10) . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('photos'), $filename);
+                $jamaah->foto = $filename;
+            } else {
+                $jamaah->foto = 'default.png';
+            }
 
             $jamaah->save();
 
@@ -131,6 +153,13 @@ class JamaahController extends Controller
                 return back()->with('error', 'Data tidak ditemukan');
             }
 
+            if ($jamaah->foto != 'default.png') {
+                $filePath = public_path('photos/' . $jamaah->foto);
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+            }
+
             $status = $jamaah->delete();
 
             if ($status) {
@@ -139,6 +168,7 @@ class JamaahController extends Controller
                 return back()->with('error', 'Gagal menghapus data');
             }
         } catch (\Exception $err) {
+            dd($err);
             return back()->with('error', 'Terdapat kesalahan dalam menghapus data');
         }
     }
