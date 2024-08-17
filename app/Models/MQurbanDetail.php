@@ -11,6 +11,6 @@ class MQurbanDetail extends Model
     protected $table = 'data_qurban_detail';
     protected $primary_key = 'id';
     protected $fillable = [
-        'id_qurban', 'nama_pembayar', 'tgl_bayar', 'nominal',
+        'id_qurban', 'nama_pembayar', 'tgl_bayar', 'nominal', 'bukti'
     ];
 }

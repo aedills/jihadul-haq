@@ -53,6 +53,7 @@
                                 </th>
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Bayar</th>
                                 <th>Nominal</th>
+                                <th>Bukti Bayar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +62,13 @@
                                 <td>{{ $list->nama_pembayar }}</td>
                                 <td>{{ (new DateTime($list->tgl_bayar))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($list->nominal, 0, ',', '.') }},-</td>
+                                <td>
+                                    <div class="d-flex justify-content-center justify-items-center">
+                                        <a href="{{url('photos/buktibayar/'.$list->bukti)}}" target="_blank">
+                                            <img src="{{url('photos/buktibayar/'.$list->bukti)}}" alt="{{$list->bukti}}" style="max-width: 60px;">
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

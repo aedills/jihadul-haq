@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\MJamaah;
 use App\Models\MQurban;
+use Illuminate\Support\Str;
 use App\Models\MQurbanDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class QurbanController extends Controller
 {
     public function index()
     {
-        if(!session('data')){
+        if (!session('data')) {
             return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
         }
 
@@ -104,10 +106,10 @@ class QurbanController extends Controller
 
     public function detail($id)
     {
-        if(!session('data')){
+        if (!session('data')) {
             return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
         }
-        
+
         return view('admin/qurban/detail', [
             'title' => 'Data Qurban | Admin',
             'page' => 'Detail Data Qurban',
@@ -128,7 +130,8 @@ class QurbanController extends Controller
                 'id_q' => 'required|string',
                 'nama_pembayar' => 'required|string|max:100',
                 'tgl_bayar' => 'required|date',
-                'nominal' => 'required|string'
+                'nominal' => 'required|string',
+                'bukti' => 'required|file|max:20480'
             ]);
 
             $detail = new MQurbanDetail();
@@ -137,6 +140,11 @@ class QurbanController extends Controller
             $detail->nama_pembayar = $request->nama_pembayar;
             $detail->tgl_bayar = $request->tgl_bayar;
             $detail->nominal = $request->nominal;
+
+            $file = $request->file('bukti');
+            $filename = Str::random(10) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('photos/buktibayar'), $filename);
+            $detail->bukti = $filename;
 
             $detail->save();
 
@@ -186,6 +194,11 @@ class QurbanController extends Controller
             $detail = MQurbanDetail::find($request->id);
 
             if ($request->idq == $detail->id_qurban) {
+                $filePath = public_path('photos/' . $detail->bukti);
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+
                 $detail->delete();
 
                 $this->updateStatus($detail->id_qurban);

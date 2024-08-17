@@ -168,7 +168,6 @@ class JamaahController extends Controller
                 return back()->with('error', 'Gagal menghapus data');
             }
         } catch (\Exception $err) {
-            dd($err);
             return back()->with('error', 'Terdapat kesalahan dalam menghapus data');
         }
     }

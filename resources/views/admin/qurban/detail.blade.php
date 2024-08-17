@@ -13,11 +13,11 @@
                         <div class="card-tool pt-3">
                             <a href="{{ route('admin.qurban.index') }}"><button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-arrow-left"></i> Kembali</button></a>
                             @if($role != 'ketua' && $role != 'admin')
-                                @if($qurban->status == 'Lunas')
-                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Status pembayaran sudah lunas."><i class="fa-solid fa-plus"></i> Tambah</button>
-                                @else
-                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
-                                @endif
+                            @if($qurban->status == 'Lunas')
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Status pembayaran sudah lunas."><i class="fa-solid fa-plus"></i> Tambah</button>
+                            @else
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
+                            @endif
                             @endif
                         </div>
                     </div>
@@ -60,6 +60,7 @@
                                 </th>
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Bayar</th>
                                 <th>Nominal</th>
+                                <th>Bukti Bayar</th>
                                 @if($role != 'ketua' && $role != 'admin')
                                 <th style="width: 20%;">Aksi</th>
                                 @endif
@@ -71,6 +72,13 @@
                                 <td>{{ $list->nama_pembayar }}</td>
                                 <td>{{ (new DateTime($list->tgl_bayar))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($list->nominal, 0, ',', '.') }},-</td>
+                                <td>
+                                    <div class="d-flex justify-content-center justify-items-center">
+                                        <a href="{{url('photos/buktibayar/'.$list->bukti)}}" target="_blank">
+                                            <img src="{{url('photos/buktibayar/'.$list->bukti)}}" alt="{{$list->bukti}}" style="max-width: 60px;">
+                                        </a>
+                                    </div>
+                                </td>
                                 @if($role != 'ketua' && $role != 'admin')
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
@@ -120,6 +128,13 @@
                                 <input id="nominal" name="nominal" type="text" class="form-control" placeholder="Contoh: 500000" onkeypress="return isNumberKey(event)" required>
                             </div>
                         </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label for="bukti" class="col-sm-3 col-form-label">Bukti Bayar</label>
+                            <div class="col-sm-9">
+                                <input id="bukti" name="bukti" type="file" class="form-control" required>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -163,6 +178,14 @@
                                 <input id="nominal" name="nominal" type="text" class="form-control" value="" placeholder="Rp. 0" onkeypress="return isNumberKey(event)" required>
                             </div>
                         </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label class="col-sm-3 col-form-label">Bukti Bayar</label>
+                            <div class="col-sm-9">
+                                <span style="font-style: italic; opacity: 0.8; font-size: smaller;">&nbsp;Anda tidak dapat mengubah bukti bayar.</span>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
