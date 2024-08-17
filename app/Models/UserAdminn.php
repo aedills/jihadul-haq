@@ -13,4 +13,8 @@ class UserAdminn extends Model
     protected $fillable = [
         'nama', 'username', 'p4ssw0rd', 'role'
     ];
+
+    protected $hidden = [
+        'p4ssw0rd',
+    ];
 }

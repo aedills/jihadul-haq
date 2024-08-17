@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\KegiatanController;
@@ -26,6 +27,15 @@ Route::post('/do', [AuthController::class, 'doLogin'])->name('doLogin');
 
 // Admin
 Route::prefix('adminn')->name('admin.')->group(function () {
+
+    // Manajemen User
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+        Route::post('/update', [AdminUserController::class, 'update'])->name('update');
+        Route::post('/delete', [AdminUserController::class, 'delete'])->name('delete');
+        Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('edit');
+    });
 
     // Kegiatan
     Route::prefix('kegiatan')->name('kegiatan.')->group(function () {

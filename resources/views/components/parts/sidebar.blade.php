@@ -47,6 +47,16 @@
         </li>
         @endif
 
+        @if($role == 'admin')
+        <li class="nav-heading">Data User</li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.user.*') ? '' : 'collapsed' }}" href="{{route('admin.user.index')}}">
+                <i class="fa-solid fa-user"></i>
+                <span>Data User</span>
+            </a>
+        </li>
+        @endif
+
 
 
 
