@@ -14,6 +14,7 @@
                             <a href="{{ route('admin.qurban.index') }}"><button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-arrow-left"></i> Kembali</button></a>
                             @if($role != 'ketua' && $role != 'admin')
                             @if($qurban->status == 'Lunas')
+                            <button id="simpanCSV" class="btn btn-sm btn-primary">Cetak CSV</button>
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Status pembayaran sudah lunas."><i class="fa-solid fa-plus"></i> Tambah</button>
                             @else
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
@@ -244,6 +245,33 @@
                 modal.find('#id').val(id);
                 modal.find('#idq').val(idq);
             });
+        });
+
+        document.getElementById('simpanCSV').addEventListener('click', function() {
+            let table = document.querySelector('.datatable');
+            let rows = table.querySelectorAll('tr');
+            let csvContent = '';
+
+            rows.forEach(function(row) {
+                let cols = row.querySelectorAll('th, td');
+                let csvRow = [];
+                cols.forEach(function(col) {
+                    csvRow.push('"' + col.innerText.trim() + '"');
+                });
+                csvContent += csvRow.join(',') + "\n";
+            });
+
+            let blob = new Blob([csvContent], {
+                type: 'text/csv;charset=utf-8;'
+            });
+            let link = document.createElement('a');
+            let url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'data.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
 
 

@@ -110,6 +110,10 @@ class QurbanController extends Controller
             return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
         }
 
+        if (session('data')->role == 'sekretaris') {
+            return redirect()->back()->with('error', 'Anda tidak boleh mengakses informasi ini');
+        }
+
         return view('admin/qurban/detail', [
             'title' => 'Data Qurban | Admin',
             'page' => 'Detail Data Qurban',

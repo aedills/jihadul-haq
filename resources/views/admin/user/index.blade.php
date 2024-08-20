@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Modal Tambah Data -->
     <div class="modal fade" id="addModal" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -101,6 +101,7 @@
                                     <option value="admin">admin</option>
                                     <option value="ketua">Ketua Takmir</option>
                                     <option value="bendahara">Bendahara Takmir</option>
+                                    <option value="sekretaris">Sekretaris Takmir</option>
                                 </select>
                             </div>
                         </div>

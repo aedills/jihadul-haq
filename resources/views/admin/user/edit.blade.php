@@ -46,6 +46,7 @@
                                         <option {{$user->role == 'admin' ? 'selected' : ''}} value="admin">admin</option>
                                         <option {{$user->role == 'ketua' ? 'selected' : ''}} value="ketua">Ketua Takmir</option>
                                         <option {{$user->role == 'bendahara' ? 'selected' : ''}} value="bendahara">Bendahara Takmir</option>
+                                        <option {{$user->role == 'sekretaris' ? 'selected' : ''}} value="sekretaris">Sekretaris Takmir</option>
                                     </select>
                                 </div>
                             </div>

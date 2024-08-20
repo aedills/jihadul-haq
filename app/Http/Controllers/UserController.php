@@ -10,6 +10,7 @@ use App\Models\MQurban;
 use App\Models\MQurbanDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -145,5 +146,35 @@ class UserController extends Controller
             'p' => MJamaah::where('gender', 'p')->count(),
             'total' => MJamaah::count()
         ]);
+    }
+
+    public function pass(Request $request)
+    {
+        if (!session('data')) {
+            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
+        return view('user/password', [
+            'title' => 'Ganti Password | Jihadul Haq',
+            'page' => 'Ganti Password',
+            'path' => 'Ganti Password',
+        ]);
+    }
+
+    public function cpass(Request $request)
+    {
+        $user = MJamaah::where('id', session('data')->id)->first();
+        if ($request->pass_baru == $request->k_pass_baru) {
+            if ($user) {
+                $user->p4ss = Hash::make($request->k_pass_baru);
+
+                $user->save();
+                return back()->with('success', 'Berhasil memperbarui password');
+            } else {
+                return back()->with('error', 'Data tidak ditemukan, silahkan hubungi admin');
+            }
+        } else {
+            return back()->with('error', 'Password baru yang Anda masukkan tidak sesuai');
+        }
     }
 }

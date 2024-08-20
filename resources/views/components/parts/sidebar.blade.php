@@ -11,7 +11,7 @@
 
         <li class="nav-heading">Data Master</li>
 
-        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
+        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara' || $role == 'sekretaris')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.kegiatan.*') ? '' : 'collapsed' }}" href="{{route('admin.kegiatan.index')}}">
                 <i class="fa-solid fa-list-check"></i>
@@ -29,7 +29,7 @@
         </li>
         @endif
 
-        @if($role == 'admin' || $role == 'ketua')
+        @if($role == 'admin' || $role == 'ketua' || $role == 'sekretaris')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.jamaah.*') ? '' : 'collapsed' }}" href="{{route('admin.jamaah.index')}}">
                 <i class="fa-solid fa-people-line"></i>

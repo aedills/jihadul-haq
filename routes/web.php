@@ -96,4 +96,7 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/keuangan', [UserController::class, 'keuangan'])->name('keuangan');
 
     Route::get('/jamaah', [UserController::class, 'jamaah'])->name('jamaah');
+
+    Route::get('/pass', [UserController::class, 'pass'])->name('pass');
+    Route::post('/cpass', [UserController::class, 'cpass'])->name('cpass');
 });

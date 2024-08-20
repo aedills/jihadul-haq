@@ -4,6 +4,10 @@
 <section class="section dashboard">
 
     <div class="row">
+        <div class="col-sm-12">
+            @include('../components/alert')
+        </div>
+
         <!-- Total Kas -->
         <div class="col-sm-12 col-md-3">
             <div class="card info-card revenue-card">
