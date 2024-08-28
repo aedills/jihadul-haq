@@ -93,12 +93,13 @@
                         @if($role != 'ketua' && $role != 'admin')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addIncomeModal"><i class="fa-solid fa-plus"></i> Tambah</button>
+                            <button id="csv_income" class="btn btn-sm btn-primary">Cetak CSV</button>
                         </div>
                         @endif
                     </div>
 
                     <!-- Tabel -->
-                    <table class="table datatable table-responsive">
+                    <table class="table datatable table-responsive income-table">
                         <thead>
                             <tr>
                                 <th>
@@ -144,12 +145,13 @@
                         @if($role != 'ketua' && $role != 'admin')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addOutcomeModal"><i class="fa-solid fa-plus"></i> Tambah</button>
+                            <button id="csv_outcome" class="btn btn-sm btn-primary">Cetak CSV</button>
                         </div>
                         @endif
                     </div>
 
                     <!-- Tabel -->
-                    <table class="table datatable">
+                    <table class="table datatable outcome-table">
                         <thead>
                             <tr>
                                 <th>
@@ -581,6 +583,60 @@
             }
             return true;
         }
+
+        document.getElementById('csv_outcome').addEventListener('click', function() {
+            let table = document.querySelector('.outcome-table');
+            let rows = table.querySelectorAll('tr');
+            let csvContent = '';
+
+            rows.forEach(function(row) {
+                let cols = row.querySelectorAll('th, td');
+                let csvRow = [];
+                cols.forEach(function(col) {
+                    csvRow.push('"' + col.innerText.trim() + '"');
+                });
+                csvContent += csvRow.join(',') + "\n";
+            });
+
+            let blob = new Blob([csvContent], {
+                type: 'text/csv;charset=utf-8;'
+            });
+            let link = document.createElement('a');
+            let url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'data.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        document.getElementById('csv_income').addEventListener('click', function() {
+            let table = document.querySelector('.income-table');
+            let rows = table.querySelectorAll('tr');
+            let csvContent = '';
+
+            rows.forEach(function(row) {
+                let cols = row.querySelectorAll('th, td');
+                let csvRow = [];
+                cols.forEach(function(col) {
+                    csvRow.push('"' + col.innerText.trim() + '"');
+                });
+                csvContent += csvRow.join(',') + "\n";
+            });
+
+            let blob = new Blob([csvContent], {
+                type: 'text/csv;charset=utf-8;'
+            });
+            let link = document.createElement('a');
+            let url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'data.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
     </script>
 </section>
 @endsection
