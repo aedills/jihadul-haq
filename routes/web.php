@@ -59,6 +59,9 @@ Route::prefix('adminn')->name('admin.')->group(function () {
         Route::post('/storeOut', [KeuanganController::class, 'storeOut'])->name('storeOut');
         Route::post('/updateOut', [KeuanganController::class, 'updateOut'])->name('updateOut');
         Route::post('/deleteOut', [KeuanganController::class, 'deleteOut'])->name('deleteOut');
+
+        Route::get('/pending', [KeuanganController::class, 'pending'])->name('pending');
+        Route::get('/pending/approve/{id}', [KeuanganController::class, 'pendingApprove'])->name('pending.approve');
     });
 
     // Jamaah

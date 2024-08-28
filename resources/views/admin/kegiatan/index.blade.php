@@ -39,8 +39,8 @@
                             <tr>
                                 <td>{{$list->nama_kegiatan}}</td>
                                 <td>{{substr($list->keterangan, 0, 20)}}</td>
-                                <td>{{$list->tanggal_mulai}}</td>
-                                <td>{{$list->tanggal_selesai}}</td>
+                                <td>{{ date('d F Y', strtotime($list->tanggal_mulai)) }}</td>
+                                <td>{{ date('d F Y', strtotime($list->tanggal_selesai)) }}</td>
                                 <td>{{$list->lokasi}}</td>
                                 <td>{{$list->penanggung_jawab}}</td>
                                 <td>{{ucfirst($list->status)}}</td>

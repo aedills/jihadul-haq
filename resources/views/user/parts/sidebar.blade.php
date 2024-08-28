@@ -18,6 +18,14 @@
                 <span>Qurban</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('user.jamaah*') ? '' : 'collapsed' }}" href="{{route('user.jamaah')}}">
+                <i class="fa-solid fa-people-line"></i>
+                <span>Jamaah</span>
+            </a>
+        </li>
+
         @endif
 
         <li class="nav-item">
@@ -32,13 +40,6 @@
                 <span>Keuangan</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('user.jamaah*') ? '' : 'collapsed' }}" href="{{route('user.jamaah')}}">
-                <i class="fa-solid fa-people-line"></i>
-                <span>Jamaah</span>
-            </a>
-        </li>
-
     </ul>
 
 </aside>

@@ -27,6 +27,7 @@
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Mulai</th>
                                 <th>Total Terbayar</th>
                                 <th>Target Total</th>
+                                <th>Hewan</th>
                                 @if($role != 'ketua' && $role != 'admin')
                                 <th style="width: 20%;">Aksi</th>
                                 @else
@@ -42,6 +43,7 @@
                                 <td>{{ (new DateTime($q->tgl_mulai))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($q->detail_sum_nominal, 0, ',', '.') }},-</td>
                                 <td>Rp. {{ number_format($q->total_target, 0, ',', '.') }},-</td>
+                                <td>{{ $q->jenis }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
                                         <a href="{{ route('admin.qurban.detail', ['id' => $q->id]) }}">
@@ -99,6 +101,20 @@
                                 <input id="total_target" name="total_target" type="text" class="form-control" placeholder="Rp. 0" onkeypress="return isNumberKey(event)" required>
                             </div>
                         </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label for="jenis" class="col-sm-3 col-form-label">Jenis Hewan</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="jenis" name="jenis" required>
+                                    <option selected hidden value="">Pilih Hewan</option>
+                                    <option value="Sapi">Sapi</option>
+                                    <option value="Kerbau">Kerbau</option>
+                                    <option value="Kuda">Kuda</option>
+                                    <option value="Kambing">Kambing</option>
+                                    <option value="Ayam">Ayam</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -144,6 +160,19 @@
                             <label for="total_target" class="col-sm-3 col-form-label">Total Target Pembayaran (Rp.)</label>
                             <div class="col-sm-9">
                                 <input id="total_target" name="total_target" type="text" class="form-control" placeholder="Rp. 0" onkeypress="return isNumberKey(event)" required value="">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 mt-1">
+                            <label for="jenis" class="col-sm-3 col-form-label">Jenis Hewan</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="jenis" name="jenis" required>
+                                    <option value="Sapi">Sapi</option>
+                                    <option value="Kerbau">Kerbau</option>
+                                    <option value="Kuda">Kuda</option>
+                                    <option value="Kambing">Kambing</option>
+                                    <option value="Ayam">Ayam</option>
+                                </select>
                             </div>
                         </div>
                     </form>

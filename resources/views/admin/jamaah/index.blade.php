@@ -13,6 +13,7 @@
                         @if($role == 'admin')
                         <div class="card-tool pt-3">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Tambah</button>
+                            <button id="simpanCSV" class="btn btn-sm btn-primary">Cetak CSV</button>
                         </div>
                         @endif
                     </div>
@@ -231,6 +232,33 @@
             }
             return true;
         }
+
+        document.getElementById('simpanCSV').addEventListener('click', function() {
+            let table = document.querySelector('.datatable');
+            let rows = table.querySelectorAll('tr');
+            let csvContent = '';
+
+            rows.forEach(function(row) {
+                let cols = row.querySelectorAll('th, td');
+                let csvRow = [];
+                cols.forEach(function(col) {
+                    csvRow.push('"' + col.innerText.trim() + '"');
+                });
+                csvContent += csvRow.join(',') + "\n";
+            });
+
+            let blob = new Blob([csvContent], {
+                type: 'text/csv;charset=utf-8;'
+            });
+            let link = document.createElement('a');
+            let url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'data.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
     </script>
 
 </section>

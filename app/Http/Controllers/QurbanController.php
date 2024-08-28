@@ -36,6 +36,7 @@ class QurbanController extends Controller
                 'penanggung_jawab' => 'required|string|max:100',
                 'tgl_mulai' => 'required|date',
                 'total_target' => 'required|string',
+                'jenis' => 'required'
             ]);
 
             $qurban = new MQurban();
@@ -44,6 +45,7 @@ class QurbanController extends Controller
             $qurban->status = 'Belum Lunas';
             $qurban->tgl_mulai = $request->tgl_mulai;
             $qurban->total_target = $request->total_target;
+            $qurban->jenis = $request->jenis;
 
             $qurban->save();
 
@@ -61,6 +63,7 @@ class QurbanController extends Controller
                 'penanggung_jawab' => 'required|string|max:100',
                 'tgl_mulai' => 'required|date',
                 'total_target' => 'required|string',
+                'jenis' => 'required'
             ]);
 
             $qurban = MQurban::find($request->id);
@@ -68,6 +71,7 @@ class QurbanController extends Controller
             $qurban->nama_penanggungjawab = $request->penanggung_jawab;
             $qurban->tgl_mulai = $request->tgl_mulai;
             $qurban->total_target = $request->total_target;
+            $qurban->jenis = $request->jenis;
 
             $qurban->save();
 
@@ -75,6 +79,7 @@ class QurbanController extends Controller
 
             return back()->with('success', 'Berhasil memperbarui data');
         } catch (\Exception $err) {
+            dd($err);
             return back()->with('error', 'Terdapat kesalahan saat memperbarui data');
         }
     }

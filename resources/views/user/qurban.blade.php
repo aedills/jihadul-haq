@@ -22,6 +22,7 @@
                                 <th data-type="date" data-format="DD-MM-YYYY">Tanggal Mulai</th>
                                 <th>Total Terbayar</th>
                                 <th>Target Total</th>
+                                <th>Hewan</th>
                                 <th style="width: 10%;">Detail</th>
                             </tr>
                         </thead>
@@ -33,6 +34,7 @@
                                 <td>{{ (new DateTime($q->tgl_mulai))->format('d-m-Y') }}</td>
                                 <td>Rp. {{ number_format($q->detail_sum_nominal, 0, ',', '.') }},-</td>
                                 <td>Rp. {{ number_format($q->total_target, 0, ',', '.') }},-</td>
+                                <td>{{ $q->jenis }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center justify-items-center gap-2">
                                         <a href="{{ route('user.qurban.detail', ['id' => $q->id]) }}">

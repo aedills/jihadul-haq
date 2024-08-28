@@ -55,7 +55,7 @@
                                     <i class="bi bi-currency-dollar"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Rp. {{ $totalMonthOut ? number_format($totalMonthOut, 0, ',', '.') : '0' }},-</h6>
+                                    <h6 style="font-size: small;">Rp. {{ $totalMonthOut ? number_format($totalMonthOut, 0, ',', '.') : '0' }},-</h6>
                                     <span class="text-danger small pt-1 fw-bold">{{ $totalMonthOut ? number_format(($totalMonthOut/$totalMonthIn) * 100, 1) : '0' }} %</span> <span class="text-muted small pt-2 ps-1">dari total kas bulan ini</span>
                                 </div>
                             </div>

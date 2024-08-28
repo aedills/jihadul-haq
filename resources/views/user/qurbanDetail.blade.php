@@ -26,6 +26,10 @@
                                     <div class="col-sm-8 col-md-9"><span class="badge {{ $qurban->status == 'Lunas' ? 'bg-success' : 'bg-warning' }}">{{ $qurban->status }}</span></div>
                                 </div>
                                 <div class="row mb-2">
+                                    <div class="col-sm-4 col-md-3"><strong>Jenis Hewan</strong></div>
+                                    <div class="col-sm-8 col-md-9">{{ $qurban->jenis }}</div>
+                                </div>
+                                <div class="row mb-2">
                                     <div class="col-sm-4 col-md-3"><strong>Tanggal Mulai</strong></div>
                                     <div class="col-sm-8 col-md-9">{{ (new DateTime($qurban->tgl_mulai))->format('d-m-Y') }}</div>
                                 </div>

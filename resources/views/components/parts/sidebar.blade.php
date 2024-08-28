@@ -11,20 +11,29 @@
 
         <li class="nav-heading">Data Master</li>
 
-        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara' || $role == 'sekretaris')
+        @if($role == 'ketua')
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('admin.kegiatan.*') ? '' : 'collapsed' }}" href="{{route('admin.kegiatan.index')}}">
-                <i class="fa-solid fa-list-check"></i>
-                <span>Kegiatan</span>
+            <a class="nav-link {{ request()->routeIs('admin.keuangan.pending') ? '' : 'collapsed' }}" href="{{route('admin.keuangan.pending')}}">
+                <i class="fa-solid fa-hourglass-half"></i>
+                <span>Verifikasi Pengeluaran</span>
             </a>
         </li>
         @endif
 
         @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara')
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('admin.keuangan.*') ? '' : 'collapsed' }}" href="{{route('admin.keuangan.index')}}">
+            <a class="nav-link {{ request()->routeIs('admin.keuangan.*') && !request()->routeIs('admin.keuangan.pending') ? '' : 'collapsed' }}" href="{{route('admin.keuangan.index')}}">
                 <i class="fa-solid fa-money-bill-trend-up"></i>
                 <span>Keuangan</span>
+            </a>
+        </li>
+        @endif
+
+        @if($role == 'admin' || $role == 'ketua' || $role == 'bendahara' || $role == 'sekretaris')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.kegiatan.*') ? '' : 'collapsed' }}" href="{{route('admin.kegiatan.index')}}">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Kegiatan</span>
             </a>
         </li>
         @endif

@@ -11,7 +11,7 @@ class KeuanganController extends Controller
 {
     public function index(Request $request)
     {
-        if(!session('data')){
+        if (!session('data')) {
             return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
         }
 
@@ -27,9 +27,9 @@ class KeuanganController extends Controller
             'totalMonthIn' => MIncome::where('tanggal', '>=', $StartOfMonth)->sum('nominal'),
             'totalWeekIn' => MIncome::where('tanggal', '>=', $StartOfWeek)->sum('nominal'),
 
-            'outcome' => MOutcome::orderBy('tanggal', 'desc')->get(),
-            'totalMonthOut' => MOutcome::where('tanggal', '>=', $StartOfMonth)->sum('nominal'),
-            'totalWeekOut' => MOutcome::where('tanggal', '>=', $StartOfWeek)->sum('nominal'),
+            'outcome' => MOutcome::orderBy('tanggal', 'desc')->where('is_verified', '=', 'ya')->get(),
+            'totalMonthOut' => MOutcome::where('tanggal', '>=', $StartOfMonth)->where('is_verified', '=', 'ya')->sum('nominal'),
+            'totalWeekOut' => MOutcome::where('tanggal', '>=', $StartOfWeek)->where('is_verified', '=', 'ya')->sum('nominal'),
 
             'role' => session('data')->role
         ]);
@@ -179,6 +179,41 @@ class KeuanganController extends Controller
             return back()->with('success', 'Berhasil menghapus data');
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan dalam menghapus data');
+        }
+    }
+
+    // Verification
+    public function pending(Request $request)
+    {
+        if (!session('data')) {
+            return redirect()->route('log1n')->with('error', 'Anda harus login terlebih dahulu');
+        }
+
+        $StartOfMonth = Carbon::now()->startOfMonth();
+        $StartOfWeek = Carbon::now()->startOfWeek();
+
+        return view('admin/keuangan/pending', [
+            'title' => 'Verifikasi Data Keuangan | Admin',
+            'page' => 'Verifikasi Data Keuangan',
+            'path' => 'Verifikasi Data Keuangan',
+
+            'outcome' => MOutcome::orderBy('tanggal', 'desc')->where('is_verified', '=', 'tidak')->get(),
+            'role' => session('data')->role
+        ]);
+    }
+
+    public function pendingApprove($id)
+    {
+        try {
+            $outcome = MOutcome::find($id);
+
+            $outcome->is_verified = 'ya';
+
+            $outcome->save();
+
+            return back()->with('success', 'Berhasil memperbarui data');
+        } catch (\Exception $err) {
+            return back()->with('error', 'Terdapat kesalahan dalam memperbarui data');
         }
     }
 }

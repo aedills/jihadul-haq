@@ -32,7 +32,7 @@
                             <i class="bi bi-currency-dollar"></i>
                         </div>
                         <div class="ps-3">
-                            <h6>Rp. {{ $totalIn ? number_format($totalIn, 0, ',', '.') : '0' }},-</h6>
+                            <h6>Rp. {{ $totalIn > 0 ? number_format($totalIn, 0, ',', '.') : '0' }},-</h6>
                             <span class="text-success small pt-1 fw-bold">Total </span> <span class="text-muted small pt-2 ps-1">pemasukan {{$ket}}</span>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="ps-3">
                             <h6>Rp. {{ $totalOut ? number_format($totalOut, 0, ',', '.') : '0' }},-</h6>
-                            <span class="text-danger small pt-1 fw-bold">{{ $totalOut ? number_format(($totalOut/$totalIn) * 100, 1) : '0' }} %</span> <span class="text-muted small pt-2 ps-1">dari total kas {{$ket}}</span>
+                            <span class="text-danger small pt-1 fw-bold">{{ $totalOut > 0 ? number_format(($totalOut/$totalIn) * 100, 1) : '0' }} %</span> <span class="text-muted small pt-2 ps-1">dari total kas {{$ket}}</span>
                         </div>
                     </div>
                 </div>
